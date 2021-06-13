@@ -21,7 +21,10 @@
         canvas
           .getContext("2d")
           .drawImage(image, 0, 0, image.width, image.height);
-
+        return canvas;
+      }
+      function getPixelArray(image) {
+        var canvas = await setCanvas(image);
         var imageData = canvas
           .getContext("2d")
           .getImageData(0, 0, image.width, image.height).data;
@@ -36,18 +39,18 @@
           };
           pixelArray.push(pixel);
         }
-        console.table(pixelArray);
+        return pixelArray;
       }
 
       document.getElementById("btn1").addEventListener("click", function () {
         var img = new Image();
         img.src = "src/access/image/basicColor.png";
-        setCanvas(img);
+        console.table(getPixelArray(img));;
       });
       document.getElementById("btn2").addEventListener("click", function () {
         var img = new Image();
         img.src = "src/access/image/Vidar.jpg";
-        setCanvas(img);
+        console.table(getPixelArray(img));;
       });
     </script>
   </body>
