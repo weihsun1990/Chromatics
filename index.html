@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>chromatics</title>
+    <style>
+      .image {
+        max-width: 300px;
+        max-height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <img class="image" id="img-vidar" src="src/access/image/Vidar.jpg" />
+    <canvas id="theCanvas"> </canvas>
+    <script>
+      function clickImage(event) {
+        console.log(
+          `event.offsetX: ${event.offsetX}, event.offsetY: ${event.offsetY}`
+        );
+        setCanvas(event.target, event.offsetX, event.offsetY);
+      }
+
+      function setCanvas(source, offsetX, offsetY) {
+        var canvas = document.getElementById("theCanvas");
+        canvas.width = source.width;
+        canvas.height = source.height;
+        canvas
+          .getContext("2d")
+          .drawImage(source, 0, 0, source.width, source.height);
+
+        var imageData = canvas
+          .getContext("2d")
+          .getImageData(offsetX, offsetY, source.width, source.height);
+        console.log(imageData);
+      }
+
+      var img = document.getElementById("img-vidar");
+      img.addEventListener("click", clickImage);
+    </script>
+  </body>
+</html>
