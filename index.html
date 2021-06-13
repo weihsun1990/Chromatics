@@ -10,32 +10,47 @@
     </style>
   </head>
   <body>
-    <img class="image" id="img-vidar" src="src/access/image/basicColor.png" />
+    <button type="button" id="btn1">load basicColor</button>
+    <button type="button" id="btn2">load Vidar</button>
     <canvas id="theCanvas"> </canvas>
     <script>
-      function clickImage(event) {
-        console.log(
-          `event.offsetX: ${event.offsetX}, event.offsetY: ${event.offsetY}`
-        );
-        setCanvas(event.target, event.offsetX, event.offsetY);
-      }
-
-      function setCanvas(source, offsetX, offsetY) {
+      function setCanvas(image) {
         var canvas = document.getElementById("theCanvas");
-        canvas.width = source.width;
-        canvas.height = source.height;
-        canvas
-          .getContext("2d")
-          .drawImage(source, 0, 0, source.width, source.height);
+        canvas.width = image.width;
+        canvas.height = image.height;
+        var context = canvas.getContext("2d");
+        context.drawImage(image, 0, 0, image.width, image.height);
 
-        var imageData = canvas
-          .getContext("2d")
-          .getImageData(offsetX, offsetY, source.width, source.height);
-        console.log(imageData);
+        var imageData = context.getImageData(
+          0,
+          0,
+          image.width,
+          image.height
+        ).data;
+
+        var pixelArray = [];
+        for (var i = 0; i < imageData.length; i += 4) {
+          var pixel = {
+            r: imageData[i],
+            g: imageData[i + 1],
+            b: imageData[i + 2],
+            a: imageData[i + 3],
+          };
+          pixelArray.push(pixel);
+        }
+        console.table(pixelArray);
       }
 
-      var img = document.getElementById("img-vidar");
-      img.addEventListener("click", clickImage);
+      document.getElementById("btn1").addEventListener("click", function () {
+        var img = new Image();
+        img.src = "src/access/image/basicColor.png";
+        setCanvas(img);
+      });
+      document.getElementById("btn1").addEventListener("click", function () {
+        var img = new Image();
+        img.src = "src/access/image/Vidar.jpg";
+        setCanvas(img);
+      });
     </script>
   </body>
 </html>
