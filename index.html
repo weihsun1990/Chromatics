@@ -18,15 +18,13 @@
         var canvas = document.getElementById("theCanvas");
         canvas.width = image.width;
         canvas.height = image.height;
-        var context = canvas.getContext("2d");
-        context.drawImage(image, 0, 0, image.width, image.height);
+        canvas
+          .getContext("2d")
+          .drawImage(image, 0, 0, image.width, image.height);
 
-        var imageData = context.getImageData(
-          0,
-          0,
-          image.width,
-          image.height
-        ).data;
+        var imageData = canvas
+          .getContext("2d")
+          .getImageData(0, 0, image.width, image.height).data;
 
         var pixelArray = [];
         for (var i = 0; i < imageData.length; i += 4) {
